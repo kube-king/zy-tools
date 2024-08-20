@@ -1,0 +1,61 @@
+
+.el-header, .el-footer {
+    background-color: #333333;
+    color: #fff;
+    text-align: center;
+    line-height: 61px;
+    border-radius: 5px;
+}
+
+.el-aside {
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+}
+
+.el-main {
+    background-color: #ffffff;
+
+    color: #333;
+    height: 600px;
+    text-align: center;
+    border: 1px solid#333333;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+body > .el-container {
+    font-family: "微软雅黑 Light";
+    margin-bottom: 40px;
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+}
+.el-menu-demo{
+    width: 800px;
+}
+
+.control-center{
+    height: 600px;
+    line-height: 100px;
+}
+
+.doc-file-upload {
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+.image-file-upload {
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+
+

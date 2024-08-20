@@ -1,0 +1,30 @@
+{{ define "header" }}
+    <div style="display:flex; ">
+        <span style="width: 150px;border-right: 1px solid #ffffff;color: #ffffff;" ><i class="el-icon-loading"></i>章鱼-工具网</span>
+        <el-menu
+                class="el-menu-demo"
+                mode="horizontal"
+                background-color="#333333"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+            <el-submenu index="2" icon="el-icon-caret-bottom">
+                <template slot="title">Word转换</template>
+<!--                <el-menu-item index="2-1"><el-link type="primary" href="pdf-to-word.html">PDF转Word</el-link></el-menu-item>-->
+                <el-menu-item index="2-2"><el-link type="primary" href="image-to-word.html">图片转Word</el-link></el-menu-item>
+            </el-submenu>
+            <el-submenu index="3">
+                <template slot="title">Excel转换</template>
+<!--                <el-menu-item index="3-3"><el-link type="primary" href="image-to-excel.html">图片转Excel</el-link></el-menu-item>-->
+                <el-menu-item index="3-3"><el-link type="primary" href="json-to-excel.html">Json转Excel</el-link></el-menu-item>
+            </el-submenu>
+            <el-submenu index="4">
+                <template slot="title">PDF转换</template>
+                <el-menu-item index="4-2"><el-link type="primary" href="word-to-pdf.html">Word转PDF</el-link></el-menu-item>
+                <el-menu-item index="4-3"><el-link type="primary" href="word-to-pdf.html">PDF转文本</el-link></el-menu-item>
+                <el-menu-item index="4-4"><el-link type="primary" href="excel-to-pdf.html">Excel转PDF</el-link></el-menu-item>
+                <el-menu-item index="4-5"><el-link type="primary" href="ppt-to-pdf.html">PPT转PDF</el-link></el-menu-item>
+                <el-menu-item index="4-6"><el-link type="primary" href="image-to-pdf.html">图片转PDF</el-link></el-menu-item>
+            </el-submenu>
+        </el-menu>
+    </div>
+{{ end }}

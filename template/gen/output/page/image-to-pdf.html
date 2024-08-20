@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图片转PDF</title>
+    <meta charset="UTF-8">
+    <meta  name="Keywords"  content="图片格式转换器,图片分割合并工具,电子书格式转换,图片转换成pdf">
+    <meta  name="Description"  content="章鱼工具网转换器是一款致力于为广大用户提供在线pdf转word、pdf转Excel、excel转pdf、word转pdf、pdf转ppt、pdf转jpg、电子书格式转换等多种格式转换的转换平台，是一款完全免费的在线转换工具，在线免费完成pdf转换成word转换体验，绿色小巧、无需安装！">
+    <link rel="stylesheet" href="../element-ui/index.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+<script src="../element-ui/vue.js"></script>
+<script src="../element-ui/index.js"></script>
+<script src="../lib/axios.min.js"></script>
+<script src="../request/request.js"></script>
+<div id="app">
+    <el-container>
+        <el-container>
+            <el-header>
+    <div style="display:flex; ">
+        <span style="width: 150px;border-right: 1px solid #ffffff;color: #ffffff;" ><i class="el-icon-loading"></i>章鱼-工具网</span>
+        <el-menu
+                class="el-menu-demo"
+                mode="horizontal"
+                background-color="#333333"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+            <el-submenu index="2" icon="el-icon-caret-bottom">
+                <template slot="title">Word转换</template>
+
+                <el-menu-item index="2-2"><el-link type="primary" href="image-to-word.html">图片转Word</el-link></el-menu-item>
+            </el-submenu>
+            <el-submenu index="3">
+                <template slot="title">Excel转换</template>
+
+                <el-menu-item index="3-3"><el-link type="primary" href="json-to-excel.html">Json转Excel</el-link></el-menu-item>
+            </el-submenu>
+            <el-submenu index="4">
+                <template slot="title">PDF转换</template>
+                <el-menu-item index="4-2"><el-link type="primary" href="word-to-pdf.html">Word转PDF</el-link></el-menu-item>
+                <el-menu-item index="4-3"><el-link type="primary" href="word-to-pdf.html">PDF转文本</el-link></el-menu-item>
+                <el-menu-item index="4-4"><el-link type="primary" href="excel-to-pdf.html">Excel转PDF</el-link></el-menu-item>
+                <el-menu-item index="4-5"><el-link type="primary" href="ppt-to-pdf.html">PPT转PDF</el-link></el-menu-item>
+                <el-menu-item index="4-6"><el-link type="primary" href="image-to-pdf.html">图片转PDF</el-link></el-menu-item>
+            </el-submenu>
+        </el-menu>
+    </div>
+
+            </el-header>
+            <el-main>
+                <el-row :gutter="20">
+                    <el-col :span="4">
+左侧广告11123123123
+</el-col>
+                    <el-col :span="16">
+                <div style="justify-content: left; font-size: 14px; display: flex;"><span style="width: 180px;"><strong>当前工具: </strong>图片转PDF</span></div>
+                <el-divider></el-divider>
+                <el-row  justify="center">
+                    <el-col :span="16">
+                        <div class="grid-left">
+                            <el-upload
+                                    class="image-file-upload"
+                                    ref="upload"
+                                    :limit="1"
+                                    :data="covType"
+                                    list-type="picture-card"
+                                    :on-success="UploadSuccess"
+                                    :before-upload="beforeUpload"
+                                    :auto-upload="false"
+                                    :action="uploadUrl"
+                                    >
+                                <i class="el-icon-plus image-file-upload-icon"></i>
+                                <div class="el-upload__tip" slot="tip">只能上传jpg,png,jpeg等图片文件,且不超过10MB</div>
+                            </el-upload>
+                            <el-button :loading="runLoading" v-on:click="WordToPdf"  type="primary">开始转换</el-button>
+                        </div>
+                    </el-col>
+                </el-row>
+                    </el-col>
+                    <el-col :span="4">
+右侧侧广告11123123123224124
+</el-col>
+                </el-row>
+            </el-main>
+            <el-footer>
+    Copyright 2014-2021 https://www.zy-tools.com All Rights Reserved |工信部ICP备案
+
+            </el-footer>
+        </el-container>
+    </el-container>
+</div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                visible: false,
+                runLoading: false,
+                uploadUrl:axios.defaults.baseURL+"/document/file-convert",
+                covType: {
+                    srcType:"jpg",
+                    dstType:"pdf",
+                },
+                title: ""
+            }
+        },
+        methods: {
+            beforeUpload(file) {
+                if (file.name.indexOf(".jpg") !== -1 || file.name.indexOf(".png") !== -1 || file.name.indexOf(".jpeg") !== -1){
+                    return true
+                }else{
+                    this.$message({
+                        type: 'error',
+                        message: '转换失败,只支持图片格式转换'
+                    });
+                    return false
+                }
+            },
+            UploadSuccess(response, file, fileList){
+                const {code,data } = response
+                if (code === 200) {
+                    download(data,file.name)
+                }
+                this.$refs.upload.clearFiles()
+            },
+            WordToPdf(){
+                this.runLoading = true
+                this.$refs.upload.submit()
+                this.runLoading = false
+
+            }
+        },
+    })
+</script>
+</html>
