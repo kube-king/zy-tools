@@ -1,0 +1,3 @@
+server:
+  uploadMaxSize: 10M
+  uploadPath: ./uploads
