@@ -17,6 +17,6 @@ limitations under the License.
 package types
 
 type ConvertResponse struct {
-	FilePath string
+	Filename string
 	Content  string
 }

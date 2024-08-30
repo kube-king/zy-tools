@@ -27,12 +27,19 @@ func InitDocumentRouter(Router *gin.RouterGroup, PublicRouter *gin.RouterGroup) 
 
 	var documentApi = api.ApiGroupApp.DocumentApi
 	{
-		//pdf := document.Group("pdf")
-		//{
-		//	pdf.POST("to-text", documentApi.PDFToText)
-		//	pdf.POST("to-image", documentApi.PDFToImage)
-		//}
-		//
+		pdf := document.Group("pdf")
+		{
+			//pdf.POST("to-text", documentApi.PDFToText)
+			//pdf.POST("to-image", documentApi.PDFToImage)
+			pdf.POST("to-word", documentApi.PdfToword)
+		}
+
+		ppt := document.Group("ppt")
+		{
+			//ppt.POST("to-text", documentApi.PDFToText)
+			ppt.POST("to-pdf", documentApi.PptToPdf)
+		}
+
 		image := document.Group("image")
 		{
 			//image.POST("to-pdf", documentApi.ImageToPDF)
@@ -42,17 +49,17 @@ func InitDocumentRouter(Router *gin.RouterGroup, PublicRouter *gin.RouterGroup) 
 
 		}
 		//
-		//excel := document.Group("excel")
-		//{
-		//	excel.POST("to-image", documentApi.ExcelToImage)
-		//	excel.POST("to-pdf", documentApi.ExcelToPDF)
-		//}
+		excel := document.Group("excel")
+		{
+			excel.POST("to-pdf", documentApi.ExcelToPdf)
+		}
+
 		//
-		//word := document.Group("word")
-		//{
-		//	word.POST("to-image", documentApi.WordToImage)
-		//	word.POST("to-pdf", documentApi.WordToPDF)
-		//}
+		word := document.Group("word")
+		{
+			//word.POST("to-image", documentApi.WordToImage)
+			word.POST("to-pdf", documentApi.WordToPdf)
+		}
 
 		json := document.Group("json")
 		{

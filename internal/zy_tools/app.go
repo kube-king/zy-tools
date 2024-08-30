@@ -17,10 +17,15 @@ limitations under the License.
 package zy_tools
 
 import (
+	"context"
 	"fmt"
+	"net/http"
+	"os"
+	"os/signal"
 	"time"
 	"zy-tools/internal/zy_tools/global"
 	"zy-tools/internal/zy_tools/initialize"
+	"zy-tools/internal/zy_tools/router"
 )
 
 // Gin 配置
@@ -59,31 +64,31 @@ func App() {
 
 	initialize.InitValidator()
 
-	//router.InitRouters()
-	//srv := &http.Server{
-	//	Addr:           ListenAddr,
-	//	Handler:        g,
-	//	ReadTimeout:    ReadTimeout,
-	//	WriteTimeout:   WriteTimeout,
-	//	MaxHeaderBytes: MaxHeaderBytes,
-	//	IdleTimeout:    IdleTimeout,
-	//}
-	//
-	//go func() {
-	//	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-	//		global.Log.Error(err, "listen server error")
-	//	}
-	//}()
-	//
-	//global.Log.Info(fmt.Sprintf("listen: %v ,success!", ListenAddr))
-	//quit := make(chan os.Signal, 1)
-	//signal.Notify(quit, os.Interrupt)
-	//<-quit
-	//global.Log.Info("Shutdown Server ...")
-	//ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	//defer cancel()
-	//if err := srv.Shutdown(ctx); err != nil {
-	//	global.Log.Error(err, "Server Shutdown:")
-	//}
-	//global.Log.Info("Server exiting")
+	g := router.InitRouters()
+	srv := &http.Server{
+		Addr:           ListenAddr,
+		Handler:        g,
+		ReadTimeout:    ReadTimeout,
+		WriteTimeout:   WriteTimeout,
+		MaxHeaderBytes: MaxHeaderBytes,
+		IdleTimeout:    IdleTimeout,
+	}
+
+	go func() {
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			global.Log.Error(err, "listen server error")
+		}
+	}()
+
+	global.Log.Info(fmt.Sprintf("listen: %v ,success!", ListenAddr))
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
+	global.Log.Info("Shutdown Server ...")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := srv.Shutdown(ctx); err != nil {
+		global.Log.Error(err, "Server Shutdown:")
+	}
+	global.Log.Info("Server exiting")
 }

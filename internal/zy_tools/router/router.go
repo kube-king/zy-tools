@@ -16,27 +16,34 @@ limitations under the License.
 
 package router
 
-func InitRouters() {
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"zy-tools/internal/zy_tools/constants"
+	"zy-tools/internal/zy_tools/global"
+)
 
-	//Router := gin.New()
-	//Router.Use(gin.Recovery())
-	//Router.MaxMultipartMemory = global.Config.Server.UploadMaxSizeValue()
-	//Router.GET("/health", func(c *gin.Context) {
-	//	c.JSON(http.StatusOK, "ok")
-	//})
-	//PublicGroup := Router.Group("apis").Group(constants.RouterPrefix)
-	//{
-	//
-	//}
-	//
-	//PrivateGroup := Router.Group("apis").Group(constants.RouterPrefix)
-	//{
-	//
-	//}
-	//
-	//InitDevelopmentRouter(PublicGroup, PrivateGroup)
-	//InitDocumentRouter(PublicGroup, PrivateGroup)
-	//global.Log.Info("init router success")
-	//return Router
+func InitRouters() *gin.Engine {
+
+	Router := gin.New()
+	Router.Use(gin.Recovery())
+	Router.MaxMultipartMemory = global.Config.Server.UploadMaxSizeValue()
+	Router.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, "ok")
+	})
+	PublicGroup := Router.Group(constants.RouterPrefix)
+	{
+
+	}
+
+	PrivateGroup := Router.Group(constants.RouterPrefix)
+	{
+
+	}
+
+	InitDevelopmentRouter(PublicGroup, PrivateGroup)
+	InitDocumentRouter(PublicGroup, PrivateGroup)
+	global.Log.Info("init router success")
+	return Router
 
 }

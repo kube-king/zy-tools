@@ -17,9 +17,11 @@ limitations under the License.
 package document
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"path"
+	"path/filepath"
 	"zy-tools/internal/zy_tools/global"
 	"zy-tools/internal/zy_tools/models/document"
 	"zy-tools/pkg/common/response"
@@ -28,14 +30,17 @@ import (
 func (d *DocumentApi) ImageToPPT(c *gin.Context) {
 	file, err := c.FormFile("file")
 	if err != nil {
+		global.Log.Error(err, "获取form文件")
 		response.R.ErrorWithMessage(c, err.Error())
 		return
 	}
 
 	fileName := file.Filename
-	dst := path.Join(global.Config.Server.UploadPath, uuid.New().String())
+	ext := filepath.Ext(fileName)
+	dst := path.Join(global.Config.Server.UploadPath, fmt.Sprintf("%v%v", uuid.New().String(), ext))
 	err = c.SaveUploadedFile(file, dst)
 	if err != nil {
+		global.Log.Error(err, "保存文件失败")
 		response.R.ErrorWithMessage(c, err.Error())
 		return
 	}
@@ -44,12 +49,13 @@ func (d *DocumentApi) ImageToPPT(c *gin.Context) {
 		FilePath: dst,
 	})
 	if err != nil {
+		global.Log.Error(err, "执行转换失败")
 		response.R.ErrorWithMessage(c, err.Error())
 		return
 	}
 
 	response.R.SuccessWithData(c, gin.H{
-		"filePath": result.FilePath,
+		"filePath": result.Filename,
 		"fileName": fileName,
 	})
 

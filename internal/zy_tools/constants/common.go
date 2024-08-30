@@ -17,7 +17,7 @@ limitations under the License.
 package constants
 
 const (
-	RouterPrefix = "/resource-center"
+	RouterPrefix = "/api"
 )
 
 const (

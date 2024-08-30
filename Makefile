@@ -73,6 +73,7 @@ docker-delete-buildx: ## Delete Builder Context.
 #	docker buildx create  --name=${APP} --driver docker-container --driver-opt image=moby/buildkit:master
 
 # start dev
+.PHONY: dev
 dev:
 	air -c air.conf
 

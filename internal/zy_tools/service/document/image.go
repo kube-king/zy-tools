@@ -17,16 +17,16 @@ limitations under the License.
 package document
 
 import (
+	"zy-tools/internal/zy_tools/constants"
+	"zy-tools/internal/zy_tools/global"
 	"zy-tools/internal/zy_tools/models/document"
+	"zy-tools/pkg/doc_conv/types"
 )
 
-type DocumentService struct {
-}
-
-func (d *DocumentService) ImageToPpt(req document.ConvertRequest) {
-	//convertResponse, err := global.Office.Convert(req.FilePath, constants.FileTypePpt)
-	//if err != nil {
-	//	return nil, err
-	//}
-	//return convertResponse, nil
+func (d *DocumentService) ImageToPpt(req document.ConvertRequest) (*types.ConvertResponse, error) {
+	convertResponse, err := global.Office.Convert(req.FilePath, constants.FileTypePpt)
+	if err != nil {
+		return nil, err
+	}
+	return convertResponse, nil
 }

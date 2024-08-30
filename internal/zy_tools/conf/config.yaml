@@ -1,3 +1,6 @@
 server:
   uploadMaxSize: 10M
   uploadPath: ./uploads
+libreoffice:
+  command: soffice
+
