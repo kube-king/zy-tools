@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"os"
 	"path"
 	"path/filepath"
 	"zy-tools/internal/zy_tools/global"
@@ -63,7 +64,17 @@ func (d *DocumentApi) PdfToword(c *gin.Context) {
 
 	fileName := file.Filename
 	ext := filepath.Ext(fileName)
-	dst := path.Join(global.Config.Server.UploadPath, fmt.Sprintf("%v%v", uuid.New().String(), ext))
+	fileId := uuid.New().String()
+
+	dir := path.Join(global.Config.Server.UploadPath, fileId)
+	err = os.MkdirAll(dir, os.ModePerm)
+	if err != nil {
+		global.Log.Error(err, "执行转换失败")
+		response.R.ErrorWithMessage(c, err.Error())
+		return
+	}
+	dstFileName := fmt.Sprintf("%v%v", fileId, ext)
+	dst := path.Join(dir, dstFileName)
 	err = c.SaveUploadedFile(file, dst)
 	if err != nil {
 		global.Log.Error(err, "保存文件失败")
@@ -72,7 +83,9 @@ func (d *DocumentApi) PdfToword(c *gin.Context) {
 	}
 
 	result, err := documentService.PdfToWord(document.ConvertRequest{
+		FileId:   fileId,
 		FilePath: dst,
+		FileName: dstFileName,
 	})
 	if err != nil {
 		global.Log.Error(err, "执行转换失败")

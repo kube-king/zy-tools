@@ -3,4 +3,10 @@ server:
   uploadPath: ./uploads
 libreoffice:
   command: soffice
-
+tika:
+  host: http://127.0.0.1:9998
+pandoc:
+  command: /usr/local/bin/pandoc
+pdfbox:
+  command: /usr/bin/java
+  jar: /Users/xiangjiqiang/code/my/zy-tools/bin/pdfbox-app-3.0.3.jar

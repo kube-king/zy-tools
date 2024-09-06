@@ -21,6 +21,9 @@ import (
 	"gorm.io/gorm"
 	"zy-tools/internal/zy_tools/config"
 	"zy-tools/pkg/doc_conv"
+	"zy-tools/pkg/pandoc"
+	"zy-tools/pkg/pdfbox"
+	"zy-tools/pkg/tika"
 )
 
 var (
@@ -28,4 +31,7 @@ var (
 	Config *config.Config
 	DB     *gorm.DB
 	Office doc_conv.Office
+	Pdfbox *pdfbox.Pdfbox
+	Tika   *tika.Tika
+	Pandoc *pandoc.Pandoc
 )

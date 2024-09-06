@@ -61,6 +61,9 @@ func App() {
 	//global.Log.Info("register tables success")
 
 	global.Office = initialize.InitOffice()
+	global.Tika = initialize.InitTika()
+	global.Pdfbox = initialize.InitPdfbox()
+	global.Pandoc = initialize.InitPandoc()
 
 	initialize.InitValidator()
 

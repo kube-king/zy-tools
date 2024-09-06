@@ -17,5 +17,7 @@ limitations under the License.
 package document
 
 type ConvertRequest struct {
+	FileId   string
 	FilePath string
+	FileName string
 }

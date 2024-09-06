@@ -17,7 +17,9 @@ limitations under the License.
 package router
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"io"
 	"net/http"
 	"zy-tools/internal/zy_tools/constants"
 	"zy-tools/internal/zy_tools/global"
@@ -30,6 +32,15 @@ func InitRouters() *gin.Engine {
 	Router.MaxMultipartMemory = global.Config.Server.UploadMaxSizeValue()
 	Router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, "ok")
+	})
+
+	Router.PUT("/tika", func(c *gin.Context) {
+		fmt.Println("header", c.Request.Header)
+		all, err := io.ReadAll(c.Request.Body)
+		if err != nil {
+			return
+		}
+		fmt.Println("body", string(all))
 	})
 	PublicGroup := Router.Group(constants.RouterPrefix)
 	{

@@ -26,6 +26,22 @@ type Config struct {
 	System      System      `json:"system" yaml:"system"`
 	Server      Server      `json:"server" yaml:"server"`
 	LibreOffice LibreOffice `yaml:"libreoffice" json:"libreoffice"`
+	Tika        Tika        `json:"tika" yaml:"tika"`
+	Pdfbox      Pdfbox      `json:"pdfbox" yaml:"pdfbox"`
+	Pandoc      Pandoc      `json:"pandoc" yaml:"pandoc"`
+}
+
+type Tika struct {
+	Host string `json:"host" yaml:"host"`
+}
+
+type Pandoc struct {
+	Command string `json:"command" yaml:"command"`
+}
+
+type Pdfbox struct {
+	Command string `json:"command" yaml:"command"`
+	Jar     string `json:"jar" yaml:"jar"`
 }
 
 type Server struct {
