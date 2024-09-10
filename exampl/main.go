@@ -2,28 +2,24 @@ package main
 
 import (
 	"fmt"
-	"path/filepath"
+	"regexp"
 )
 
 func main() {
-	//global.Office = libreoffice.NewLibreOffice(
-	//	libreoffice.WithCommand("global.Config.LibreOffice.Command"),
-	//	libreoffice.WithOutputPath("global.Config.Server.UploadPath"),
-	//)
-	//
-	////fmt.Println("1")
+	// 原始字符串
+	text := `
+	embedded:image265.jpg
+	embedded:image01.jpg
+	embedded:image-02.png
+	embedded:image-03.jpg
+	embedded:image-04.png
+	`
 
-	filename := "uploads/efabb9a2-c143-4a6d-a4ad-3798cd695353.docx"
+	// 正则表达式匹配 embedded:image-01.jpg 或 embedded:image-01.png
+	re := regexp.MustCompile(`embedded:image(\d{1,10})\.(jpg|png)`)
 
-	ext := filepath.Ext(filename)
-	base := filepath.Base(filename)
-	abs, err := filepath.Abs(filename)
-	if err != nil {
-		return
-	}
+	// 替换为 image-01.jpg 保留编号
+	result := re.ReplaceAllString(text, `images-$1.jpg`)
 
-	filepath.Split(abs)
-
-	fmt.Println(abs)
-	fmt.Println(ext, base)
+	fmt.Println(result)
 }

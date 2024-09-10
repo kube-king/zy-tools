@@ -10,3 +10,5 @@ pandoc:
 pdfbox:
   command: /usr/bin/java
   jar: /Users/xiangjiqiang/code/my/zy-tools/bin/pdfbox-app-3.0.3.jar
+pdf2docx:
+  command: /Users/xiangjiqiang/anaconda3/bin/pdf2docx

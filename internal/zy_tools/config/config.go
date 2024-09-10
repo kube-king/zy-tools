@@ -29,6 +29,11 @@ type Config struct {
 	Tika        Tika        `json:"tika" yaml:"tika"`
 	Pdfbox      Pdfbox      `json:"pdfbox" yaml:"pdfbox"`
 	Pandoc      Pandoc      `json:"pandoc" yaml:"pandoc"`
+	Pdf2docx    Pdf2docx    `json:"pdf2docx" yaml:"pdf2docx"`
+}
+
+type Pdf2docx struct {
+	Command string `json:"command" yaml:"command"`
 }
 
 type Tika struct {

@@ -64,7 +64,7 @@ func App() {
 	global.Tika = initialize.InitTika()
 	global.Pdfbox = initialize.InitPdfbox()
 	global.Pandoc = initialize.InitPandoc()
-
+	global.Pdf2docx = initialize.InitPdf2docx()
 	initialize.InitValidator()
 
 	g := router.InitRouters()

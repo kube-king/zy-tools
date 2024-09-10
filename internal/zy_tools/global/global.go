@@ -22,16 +22,18 @@ import (
 	"zy-tools/internal/zy_tools/config"
 	"zy-tools/pkg/doc_conv"
 	"zy-tools/pkg/pandoc"
+	"zy-tools/pkg/pdf2docx"
 	"zy-tools/pkg/pdfbox"
 	"zy-tools/pkg/tika"
 )
 
 var (
-	Log    logr.Logger
-	Config *config.Config
-	DB     *gorm.DB
-	Office doc_conv.Office
-	Pdfbox *pdfbox.Pdfbox
-	Tika   *tika.Tika
-	Pandoc *pandoc.Pandoc
+	Log      logr.Logger
+	Config   *config.Config
+	DB       *gorm.DB
+	Office   doc_conv.Office
+	Pdfbox   *pdfbox.Pdfbox
+	Tika     *tika.Tika
+	Pandoc   *pandoc.Pandoc
+	Pdf2docx *pdf2docx.Pdf2Docx
 )

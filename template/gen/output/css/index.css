@@ -1,52 +1,32 @@
-
 .el-header, .el-footer {
     background-color: #333333;
     color: #fff;
     text-align: center;
-    line-height: 61px;
     border-radius: 5px;
+    justify-content: center;
 }
 
 .el-aside {
     background-color: #ffffff;
     color: #333;
     text-align: center;
-    line-height: 200px;
 }
 
 .el-main {
     background-color: #ffffff;
-
     color: #333;
-    height: 600px;
+    height: 80%;
     text-align: center;
-    border: 1px solid#333333;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    justify-content: center;
+    border: 1px solid #333333;
     border-radius: 5px;
 }
 
-body > .el-container {
-    font-family: "微软雅黑 Light";
-    margin-bottom: 40px;
+.main-title {
+
 }
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-}
 
-.el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-}
-.el-menu-demo{
-    width: 800px;
-}
-
-.control-center{
-    height: 600px;
-    line-height: 100px;
-}
 
 .doc-file-upload {
     margin-top: 100px;
@@ -57,5 +37,53 @@ body > .el-container {
     margin-bottom: 20px;
 }
 
+#app{
+    height: 100%;
+    width: 100%;
+    border: 1px solid #ccc;
+    margin: 0;
+}
 
+.header-title-left {
+    width: 20%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #ffffff;
+    color: #ffffff;
+    display: flex;
+}
 
+.header-title-right {
+    width: 60%;
+    height: 100%;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.header-title-menu {
+    height: 100%;
+}
+
+.footer-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+html,body{
+    font-family: "微软雅黑 Light";
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
