@@ -85,7 +85,6 @@ func (d *DocumentApi) PdfToword(c *gin.Context) {
 	result, err := documentService.PdfToWord(document.ConvertRequest{
 		FileId:   fileId,
 		FilePath: dst,
-		FileName: dstFileName,
 	})
 	if err != nil {
 		global.Log.Error(err, "执行转换失败")

@@ -24,6 +24,7 @@ import (
 	"path/filepath"
 	"zy-tools/internal/zy_tools/global"
 	"zy-tools/internal/zy_tools/models/document"
+	"zy-tools/internal/zy_tools/utils"
 	"zy-tools/pkg/common/response"
 )
 
@@ -56,6 +57,6 @@ func (d *DocumentApi) WordToPdf(c *gin.Context) {
 
 	response.R.SuccessWithData(c, gin.H{
 		"filePath": result.Filename,
-		"fileName": fileName,
+		"fileName": utils.FileNameRepExt(fileName, ".pdf"),
 	})
 }

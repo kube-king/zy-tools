@@ -18,17 +18,28 @@ package router
 
 import (
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
+	"time"
 	"zy-tools/internal/zy_tools/constants"
 	"zy-tools/internal/zy_tools/global"
+	"zy-tools/internal/zy_tools/middleware"
 )
 
 func InitRouters() *gin.Engine {
 
 	Router := gin.New()
 	Router.Use(gin.Recovery())
+	Router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"}, // Allowed origin(s)
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 	Router.MaxMultipartMemory = global.Config.Server.UploadMaxSizeValue()
 	Router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, "ok")
@@ -47,13 +58,18 @@ func InitRouters() *gin.Engine {
 
 	}
 
+	PublicGroup.Use(middleware.Cores())
+
 	PrivateGroup := Router.Group(constants.RouterPrefix)
 	{
 
 	}
 
+	PrivateGroup.Use(middleware.Cores())
+
 	InitDevelopmentRouter(PublicGroup, PrivateGroup)
 	InitDocumentRouter(PublicGroup, PrivateGroup)
+	InitCommonRouter(PublicGroup, PrivateGroup)
 	global.Log.Info("init router success")
 	return Router
 

@@ -1,4 +1,4 @@
-axios.defaults.baseURL = 'http://192.168.0.20:8080';
+axios.defaults.baseURL = 'http://127.0.0.1:8080';
 
 
 // 创建一个 Axios 实例
@@ -61,8 +61,9 @@ function download(url = '', fileName = '未知文件') {
     a.style.display = 'none';
     a.setAttribute('target', '_blank');
     fileName && a.setAttribute('download', fileName);
-    a.href = axios.defaults.baseURL+"/download?fileName="+url;
+    a.href = axios.defaults.baseURL+"/api/download?fileName="+fileName+"&path="+url;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
 }
+

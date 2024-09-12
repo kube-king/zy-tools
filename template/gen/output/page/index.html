@@ -15,138 +15,186 @@
 <script src="../lib/axios.min.js"></script>
 <script src="../request/request.js"></script>
 <div id="app">
-            <el-header height="10%">
-                <div class="header-title">
-                    <div class="header-title-left">
-                        <span ><i class="el-icon-loading"></i>章鱼-工具网</span>
-                    </div>
-                    <div class="header-title-right">
-                        <el-menu
-                                class="header-title-menu"
-                                mode="horizontal"
-                                background-color="#333333"
-                                text-color="#fff"
-                                active-text-color="#ffd04b">
-                            <el-submenu index="2" icon="el-icon-caret-bottom">
-                                <template slot="title">Word转换</template>
+    <el-header height="10%">
+        <div class="header-title">
+            <div class="header-title-left">
+                <span><i class="el-icon-loading"></i>章鱼-工具网</span>
+            </div>
+            <div class="header-title-right">
+                <el-menu
+                        class="header-title-menu"
+                        mode="horizontal"
+                        background-color="#333333"
+                        text-color="#fff"
+                        active-text-color="#ffd04b">
+                    <el-submenu index="2" icon="el-icon-caret-bottom">
+                        <template slot="title">Word转换</template>
 
-                                <el-menu-item index="2-2">
-                                    <el-link type="primary" href="image-to-word.html">图片转Word</el-link>
-                                </el-menu-item>
-                            </el-submenu>
-                            <el-submenu index="3">
-                                <template slot="title">Excel转换</template>
+                        <el-menu-item index="2-2">
+                            <el-link type="primary" href="image-to-word.html">图片转Word</el-link>
+                        </el-menu-item>
+                    </el-submenu>
+                    <el-submenu index="3">
+                        <template slot="title">Excel转换</template>
 
-                                <el-menu-item index="3-3">
-                                    <el-link type="primary" href="json-to-excel.html">Json转Excel</el-link>
-                                </el-menu-item>
-                            </el-submenu>
-                            <el-submenu index="4">
-                                <template slot="title">PDF转换</template>
-                                <el-menu-item index="4-2">
-                                    <el-link type="primary" href="word-to-pdf.html">Word转PDF</el-link>
-                                </el-menu-item>
-                                <el-menu-item index="4-3">
-                                    <el-link type="primary" href="word-to-pdf.html">PDF转文本</el-link>
-                                </el-menu-item>
-                                <el-menu-item index="4-4">
-                                    <el-link type="primary" href="excel-to-pdf.html">Excel转PDF</el-link>
-                                </el-menu-item>
-                                <el-menu-item index="4-5">
-                                    <el-link type="primary" href="ppt-to-pdf.html">PPT转PDF</el-link>
-                                </el-menu-item>
-                                <el-menu-item index="4-6">
-                                    <el-link type="primary" href="image-to-pdf.html">图片转PDF</el-link>
-                                </el-menu-item>
-                            </el-submenu>
-                        </el-menu>
-                    </div>
-                </div>
-            </el-header>
-            <el-main>
-                <el-row :gutter="20">
-                    <el-col :span="4">
-                        左侧广告11123123123
-                    </el-col>
-                    <el-col :span="16">
-                        <div style="justify-content: left; font-size: 14px; display: flex;"><span style="width: 180px;">
-                            <strong>当前工具: </strong>Word转PDF</span>
+                        <el-menu-item index="3-3">
+                            <el-link type="primary" href="json-to-excel.html">Json转Excel</el-link>
+                        </el-menu-item>
+                    </el-submenu>
+                    <el-submenu index="4">
+                        <template slot="title">PDF转换</template>
+                        <el-menu-item index="4-2">
+                            <el-link type="primary" href="word-to-pdf.html">Word转PDF</el-link>
+                        </el-menu-item>
+                        <el-menu-item index="4-3">
+                            <el-link type="primary" href="word-to-pdf.html">PDF转文本</el-link>
+                        </el-menu-item>
+                        <el-menu-item index="4-4">
+                            <el-link type="primary" href="excel-to-pdf.html">Excel转PDF</el-link>
+                        </el-menu-item>
+                        <el-menu-item index="4-5">
+                            <el-link type="primary" href="ppt-to-pdf.html">PPT转PDF</el-link>
+                        </el-menu-item>
+                        <el-menu-item index="4-6">
+                            <el-link type="primary" href="image-to-pdf.html">图片转PDF</el-link>
+                        </el-menu-item>
+                    </el-submenu>
+                </el-menu>
+            </div>
+        </div>
+    </el-header>
+    <el-main>
+        <div class="main-left">
+
+
+        </div>
+        <div class="main-content">
+            <div class="main-content-top">
+                <strong>当前工具: </strong>Word转PDF</span>
+            </div>
+            <div class="main-content-buttom">
+                <el-upload
+                        class="doc-file-upload"
+                        ref="upload"
+                        :limit="1"
+                        drag
+                        :on-success="UploadSuccess"
+                        :before-upload="beforeUpload"
+                        :auto-upload="false"
+                        :action="uploadUrl"
+                >
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    <div class="el-upload__tip" slot="tip">只能上传wrod 文件,且不超过10MB</div>
+                </el-upload>
+                <el-button v-on:click="WordToPdf" type="primary">开始转换
+                </el-button>
+            </div>
+        </div>
+        <div class="main-right">
+
+
+        </div>
+    </el-main>
+    <el-footer height="10%">
+        <div class="footer-text">
+            <span>Copyright 2014-2021 https://www.zy-tools.com All Rights Reserved |工信部ICP备案</span>
+        </div>
+    </el-footer>
+    <el-dialog
+            title="转换结果"
+            :visible.sync="convDialog"
+            width="600px"
+            custom-class="conv-dialog"
+    >
+        <div class="conv-dialog-main">
+            <div class="conv-dialog-top" v-if="runLoading">
+                <img src="../images/loading.gif" class="loading-img" >
+            </div>
+            <div v-else class="conv-dialog-top">
+                <div class="conv-dialog-top-content">
+                    <div class="conv-result" v-if="isSuccess">
+                        <div class="conv-filename">
+                            <span>{{fileName}}</span>
                         </div>
-                        <el-divider></el-divider>
-                        <el-row justify="center">
-                            <el-col :span="16">
-                                <div class="grid-left">
-                                    <el-upload
-                                            class="doc-file-upload"
-                                            ref="upload"
-                                            :limit="1"
-                                            :data="covType"
-                                            drag
-                                            :on-success="UploadSuccess"
-                                            :before-upload="beforeUpload"
-                                            :auto-upload="false"
-                                            :action="uploadUrl"
-                                    >
-                                        <i class="el-icon-upload"></i>
-                                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                                        <div class="el-upload__tip" slot="tip">只能上传Wrod 文件,且不超过10MB</div>
-                                    </el-upload>
-                                    <el-button :loading="runLoading" v-on:click="WordToPdf" type="primary">开始转换
-                                    </el-button>
+                        <div class="conv-result-top">
+                            <el-button v-on:click="handleDownload" type="text">
+                                <div style="display: flex;width: 100%;height: 100%;flex-direction: column; align-items: center;justify-content: center;">
+                                    <img  src="../images/download.png" class="attach-img">
+                                    <span>点击下载文件</span>
                                 </div>
-                            </el-col>
-                        </el-row>
-                    </el-col>
-                    <el-col :span="4">
-                        右侧侧广告11123123123224124
-                    </el-col>
-                </el-row>
-            </el-main>
-            <el-footer height="10%">
-                <div class="footer-text">
-                    <span>Copyright 2014-2021 https://www.zy-tools.com All Rights Reserved |工信部ICP备案</span>
+                            </el-button>
+                        </div>
+                        <div class="conv-result-buttom">
+                            <span>转换结果:</span>
+                            <img  src="../images/success.png" class="result-img" />
+                        </div>
+                    </div>
+                    <div class="conv-result" v-else>
+                        <div class="conv-result-buttom">
+                            <span>转换结果:</span>
+                            <img  src="../images/error.png" class="result-img" />
+                        </div>
+                    </div>
                 </div>
-            </el-footer>
+            </div>
+        </div>
+    </el-dialog>
 </div>
+
 </body>
 <script>
     new Vue({
         el: '#app',
         data: function () {
             return {
+                uploadUrl:axios.defaults.baseURL+'/api/document/word/to-pdf',
                 visible: false,
                 runLoading: false,
-                uploadUrl: axios.defaults.baseURL + "/document/file-convert",
-                covType: {
-                    srcType: "docx",
-                    dstType: "pdf",
-                },
-                title: ""
+                convDialog: false,
+                isSuccess: false,
+                fileName: '',
+                responseFile: '',
             }
         },
         methods: {
             beforeUpload(file) {
-                if (file.name.indexOf(".doc") === -1) {
+                console.log("before upload")
+                if (file.name.indexOf(".doc") === -1 || file.name.indexOf(".docx") === -1) {
                     this.$message({
                         type: 'error',
-                        message: '转换失败,只支持word文档转换'
+                        message: '只支持word文档转换'
                     });
                     return false
                 }
                 return true
             },
+            handleDownload(){
+                console.log(this.responseFile)
+                console.log(this.fileName)
+                download(this.responseFile,this.fileName)
+            },
             UploadSuccess(response, file, fileList) {
                 const {code, data} = response
                 if (code === 200) {
-                    download(data, file.name)
+                    console.log(data)
+                    this.isSuccess = true
+                    this.runLoading = false
+                    this.fileName = data.fileName
+                    this.responseFile = data.filePath
                 }
                 this.$refs.upload.clearFiles()
             },
             WordToPdf() {
+                if (this.$refs.upload.uploadFiles.length === 0 ){
+                    this.$message.error('请选择需要转换的文件');
+                    return
+                }
+                this.convDialog = true
                 this.runLoading = true
+                this.isSuccess = false
+                this.fileName = ''
                 this.$refs.upload.submit()
-                this.runLoading = false
-
             }
         },
     })
