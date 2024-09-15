@@ -36,6 +36,17 @@ func (d *DocumentApi) WordToPdf(c *gin.Context) {
 		return
 	}
 
+	f, err := file.Open()
+	if err != nil {
+		global.Log.Error(err, "文件打开失败")
+		response.R.ErrorWithMessage(c, "文件类型必须是Word格式")
+	}
+	if !utils.CheckFileBufferMimeByExt(f, "docx", "doc") {
+		global.Log.Error(err, "文件类型必须是Word格式")
+		response.R.ErrorWithMessage(c, "文件类型必须是Word格式")
+		return
+	}
+
 	fileName := file.Filename
 	ext := filepath.Ext(fileName)
 	dst := path.Join(global.Config.Server.UploadPath, fmt.Sprintf("%v%v", uuid.New().String(), ext))

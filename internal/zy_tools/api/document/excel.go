@@ -24,6 +24,7 @@ import (
 	"path/filepath"
 	"zy-tools/internal/zy_tools/global"
 	"zy-tools/internal/zy_tools/models/document"
+	"zy-tools/internal/zy_tools/utils"
 	"zy-tools/pkg/common/response"
 )
 
@@ -38,6 +39,17 @@ func (d *DocumentApi) ExcelToPdf(c *gin.Context) {
 	fileName := file.Filename
 	ext := filepath.Ext(fileName)
 	dst := path.Join(global.Config.Server.UploadPath, fmt.Sprintf("%v%v", uuid.New().String(), ext))
+	f, err := file.Open()
+	if err != nil {
+		global.Log.Error(err, "文件打开失败")
+		response.R.ErrorWithMessage(c, "文件类型必须是xlsx格式")
+	}
+	if !utils.CheckFileBufferMimeByExt(f, "xlsx") {
+		global.Log.Error(err, "文件类型必须是xlsx格式")
+		response.R.ErrorWithMessage(c, "文件类型必须是xlsx格式")
+		return
+	}
+
 	err = c.SaveUploadedFile(file, dst)
 	if err != nil {
 		global.Log.Error(err, "保存文件失败")

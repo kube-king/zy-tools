@@ -25,6 +25,7 @@ import (
 	"path/filepath"
 	"zy-tools/internal/zy_tools/global"
 	"zy-tools/internal/zy_tools/models/document"
+	"zy-tools/internal/zy_tools/utils"
 	"zy-tools/pkg/common/response"
 )
 
@@ -59,6 +60,17 @@ func (d *DocumentApi) PdfToword(c *gin.Context) {
 	if err != nil {
 		global.Log.Error(err, "获取form文件")
 		response.R.ErrorWithMessage(c, err.Error())
+		return
+	}
+
+	f, err := file.Open()
+	if err != nil {
+		global.Log.Error(err, "文件打开失败")
+		response.R.ErrorWithMessage(c, "文件类型必须是PDF格式")
+	}
+	if !utils.CheckFileBufferMimeByExt(f, "pdf") {
+		global.Log.Error(err, "文件类型必须是PDF格式")
+		response.R.ErrorWithMessage(c, "文件类型必须是PDF格式")
 		return
 	}
 
